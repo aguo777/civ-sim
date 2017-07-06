@@ -6,7 +6,7 @@ import scala.math.BigDecimal.RoundingMode
 import Console._
 
 sealed trait Job {
-  def render: String = s"${YELLOW}${toString}${RESET}"
+  def render: String = s"$YELLOW$toString$RESET"
   def examine(world: World): String
 }
 

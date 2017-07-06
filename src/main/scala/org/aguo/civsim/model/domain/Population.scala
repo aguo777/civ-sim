@@ -17,9 +17,9 @@ case class Population(
     val currentAllocation = jobAllocations.getOrElse(job, BigInt(0))
     val delta = newAllocation - currentAllocation
     if (newAllocation < 0) {
-      Failure(new IllegalArgumentException(s"Must allocate positive number to ${job}."))
+      Failure(new IllegalArgumentException(s"Must allocate positive number to $job."))
     } else if (delta > unemployed) {
-      Failure(new IllegalArgumentException(s"Insufficient people to allocate to ${job}."))
+      Failure(new IllegalArgumentException(s"Insufficient people to allocate to $job."))
     } else {
       val newJobAllocations = jobAllocations.updated(job, newAllocation)
       val newPopulation = copy(jobAllocations = newJobAllocations)
@@ -64,7 +64,8 @@ case class Population(
     val foodConsumption = BigDecimal(count)
     val foodSurplus = foodProduction - foodConsumption
     val growth = foodSurplus
-    val newValue = value + growth
+    val maxHousing = world.domain.territory.buildings.collect({ case (b: Housing, n) => n * b.capacity }).sum
+    val newValue = (value + growth) min BigDecimal(maxHousing)
     updateValue(newValue)
   }
 

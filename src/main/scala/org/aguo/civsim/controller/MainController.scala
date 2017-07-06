@@ -7,10 +7,10 @@ import scala.io.StdIn._
 
 object MainController {
 
-  val HelpCommand = "help (.*)".r
-  val ViewCommand = "view (.*)".r
-  val ExamineCommand = "examine (.*)".r
-  val JobsCommand = "jobs (.*)".r
+  val HelpCommand = "[h|help] (.*)".r
+  val ViewCommand = "[v|view] (.*)".r
+  val ExamineCommand = "[e|examine] (.*)".r
+  val JobsCommand = "[j|jobs] (.*)".r
 
   def run(world: World): World = {
     run(handleInput(readLine(), world))
@@ -18,13 +18,13 @@ object MainController {
 
   def handleInput(input: String, world: World): World = input match {
     case ExamineCommand(s) => ExamineController.handleInput(s, world)
-    case "help" => MainHelpScreen.render(world)
+    case "h" | "help" => MainHelpScreen.render(world)
     case HelpCommand(s) => HelpController.handleInput(s, world)
-    case "jobs" => ViewController.handleInput("jobs", world)
+    case "j" | "jobs" => ViewController.handleInput("jobs", world)
     case JobsCommand(s) => JobsController.handleInput(s, world)
-    case "next" => world.nextTurn()
-    case "quit" => System.exit(0); world // TODO: exit more gracefully?
-    case "summary" => SummaryScreen.render(world)
+    case "n" | "next" => world.nextTurn()
+    case "q" | "quit" => System.exit(0); world // TODO: exit more gracefully?
+    case "s" | "summary" => SummaryScreen.render(world)
     case ViewCommand(s) => ViewController.handleInput(s, world)
     case _ => UnknownScreen.render(world)
   }

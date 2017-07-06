@@ -38,7 +38,8 @@ object HelpViewScreen extends HelpScreen {
 
 object HelpExamineScreen extends HelpScreen {
   override def getAvailableCommands(world: World): List[(String, String)] = List(
-    "examine <job>" -> "Examine details of people in <job>. For example, 'examine farmer'."
+    "examine <job>" -> "Examine details of people in <job>. For example, 'examine farmer'.",
+    "examine <building>" -> "Examine details of <building>. For example, 'examine farm'."
   )
 }
 
